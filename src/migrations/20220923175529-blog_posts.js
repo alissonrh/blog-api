@@ -15,13 +15,14 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         },
         onDelete: 'CASCADE',
+        field: 'user_id'
       },
       published: {
         allowNull: false,
