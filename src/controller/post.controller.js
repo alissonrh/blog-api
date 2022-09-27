@@ -2,7 +2,7 @@ const { categoryService, postService } = require('../services');
 
 const isBodyValid = (title, content, categoryIds) => title && content && categoryIds;
 
-const postController = async (req, res) => {
+const createPost = async (req, res) => {
   try {
     const { body, user } = req; body.user = user;
     const { title, content, categoryIds } = req.body;
@@ -11,12 +11,12 @@ const postController = async (req, res) => {
     }
     const arrayOfCategories = await Promise.all(
       categoryIds.map(async (value) => categoryService.getByCategoryId(value)),
-    ); 
-    const someCategoryNotFound = arrayOfCategories.some((c) => c === null);  
+    );
+    const someCategoryNotFound = arrayOfCategories.some((c) => c === null);
     if (someCategoryNotFound) {
       return res.status(400).json({ message: '"categoryIds" not found' });
     }
-    
+
     const response = await postService.createPost(body);
     res.status(201).json(response);
   } catch (err) {
@@ -24,4 +24,20 @@ const postController = async (req, res) => {
   }
 };
 
-module.exports = postController;
+const getAllPost = async (_req, res) => {
+  const response = await postService.getAll();
+  res.status(200).json(response);
+};
+
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const response = await postService.getPostById(id);
+  console.log('RESPONSE', response);
+  if (!response) {
+    res.status(404).json({ message: 'Post does not exist' });
+  }
+
+  res.status(200).json(response);
+};
+
+module.exports = { createPost, getAllPost, getPostById };
