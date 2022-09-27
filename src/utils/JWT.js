@@ -12,7 +12,14 @@ const generateToken = async (payload) => jwt.sign(payload, tokenSecret, jwtConfi
 
 const authTokenValidation = async (token) => jwt.verify(token, tokenSecret);
 
+const getIdByToken = async (token) => {
+  const decode = jwt.verify(token, tokenSecret);
+
+  return decode;
+};
+
 module.exports = {
   generateToken,
   authTokenValidation,
+  getIdByToken,
 };
