@@ -22,6 +22,7 @@ const createCategory = async (category) => {
 };
 
 module.exports = {
+  getByCategoryId,
   createCategory,
   getAll,
 };
