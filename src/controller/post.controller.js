@@ -42,7 +42,9 @@ const getPostById = async (req, res) => {
 const isBodyValidUpdate = ({ title, content }) => title && content;
 
 const updatePost = async (req, res) => {
+  const { body, user } = req; body.user = user;
   const { id } = req.params;
+  console.log(req.body);
  
   if (!isBodyValidUpdate(req.body)) {
     return res.status(400).json({ message: 'Some required fields are missing' });

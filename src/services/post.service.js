@@ -54,13 +54,22 @@ const createPost = async ({ user, title, content, categoryIds }) => {
   }
 };
 
-const updatePost = async (id, { title, content }) => {
-  const postUpdated = await BlogPost.update(
+const updatePost = async (id, { title, content, user }) => {
+  const post = await getPostByIdReturn(id);
+
+  if (post.userId !== user) {
+    return { type: 401, message: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.update(
     { title, content },
     { where: { id } },
   );
 
-  return { type: 200, message: postUpdated };
+  const response = await getPostById(id);
+  console.log(response);
+
+  return { type: 200, message: response };
 };
 
 module.exports = { createPost, getPostById, getAll, updatePost };
