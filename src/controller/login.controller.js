@@ -17,7 +17,7 @@ try {
   }
 
   const token = await generateToken({ email, password });
-  res.status(200).json({ token });
+  return res.status(200).json({ token });
 } catch (err) {
   return res.status(500).json({ message: 'Erro interno', error: err.message });
 }
