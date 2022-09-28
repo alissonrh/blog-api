@@ -32,7 +32,6 @@ const getAllPost = async (_req, res) => {
 const getPostById = async (req, res) => {
   const { id } = req.params;
   const response = await postService.getPostById(id);
-  console.log('RESPONSE', response);
   if (!response) {
     res.status(404).json({ message: 'Post does not exist' });
   }
@@ -40,4 +39,18 @@ const getPostById = async (req, res) => {
   res.status(200).json(response);
 };
 
-module.exports = { createPost, getAllPost, getPostById };
+const isBodyValidUpdate = ({ title, content }) => title && content;
+
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+ 
+  if (!isBodyValidUpdate(req.body)) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+
+  const { type, message } = await postService.updatePost(id, req.body);
+
+  return res.status(type).json(message);
+};
+
+module.exports = { createPost, getAllPost, getPostById, updatePost };

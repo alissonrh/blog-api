@@ -9,5 +9,6 @@ const routes = express.Router();
 routes.post('/', authMiddleware, getIdMiddleware, postController.createPost);
 routes.get('/', authMiddleware, postController.getAllPost);
 routes.get('/:id', authMiddleware, postController.getPostById);
+routes.put('/:id', authMiddleware, postController.updatePost);
 
 module.exports = routes;
