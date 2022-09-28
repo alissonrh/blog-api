@@ -10,7 +10,14 @@ const categoryData = Joi.object({
   name: Joi.string().required(),
 });
 
+const updateData = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  user: Joi.number(),
+});
+
 module.exports = {
   userData,
   categoryData,
+  updateData,
 };

@@ -1,4 +1,5 @@
 const { BlogPost, PostCategory, User, Category } = require('../models');
+const { validadeUpdateData } = require('./validations/validateData');
 
 const getPostByIdReturn = async (id) => BlogPost.findOne({
   where: { id },
@@ -55,6 +56,11 @@ const createPost = async ({ user, title, content, categoryIds }) => {
 };
 
 const updatePost = async (id, { title, content, user }) => {
+  console.log(title, content);
+  const validateInput = validadeUpdateData({ title, content, user });
+  console.log(validateInput);
+  if (validateInput.type) return validateInput;
+
   const post = await getPostByIdReturn(id);
 
   if (post.userId !== user) {
@@ -67,7 +73,6 @@ const updatePost = async (id, { title, content, user }) => {
   );
 
   const response = await getPostById(id);
-  console.log(response);
 
   return { type: 200, message: response };
 };

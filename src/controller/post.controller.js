@@ -18,7 +18,7 @@ const createPost = async (req, res) => {
     }
 
     const response = await postService.createPost(body);
-    res.status(201).json(response);
+    return res.status(201).json(response);
   } catch (err) {
     return res.status(500).json({ message: 'Erro interno', error: err.message });
   }
@@ -26,7 +26,7 @@ const createPost = async (req, res) => {
 
 const getAllPost = async (_req, res) => {
   const response = await postService.getAll();
-  res.status(200).json(response);
+  return res.status(200).json(response);
 };
 
 const getPostById = async (req, res) => {
@@ -36,19 +36,19 @@ const getPostById = async (req, res) => {
     res.status(404).json({ message: 'Post does not exist' });
   }
 
-  res.status(200).json(response);
+  return res.status(200).json(response);
 };
 
-const isBodyValidUpdate = ({ title, content }) => title && content;
+/* const isBodyValidUpdate = ({ title, content }) => title && content; */
 
 const updatePost = async (req, res) => {
   const { body, user } = req; body.user = user;
   const { id } = req.params;
   console.log(req.body);
  
-  if (!isBodyValidUpdate(req.body)) {
+/*   if (!isBodyValidUpdate(req.body)) {
     return res.status(400).json({ message: 'Some required fields are missing' });
-  }
+  } */
 
   const { type, message } = await postService.updatePost(id, req.body);
 

@@ -1,6 +1,7 @@
 const {
   userData,
   categoryData,
+  updateData,
 } = require('./schema');
 
 const validateNewUser = ({ email, password, displayName }) => {
@@ -19,7 +20,16 @@ const validateNewCategory = ({ name }) => {
   return { type: null, message: '' };
 };
 
+const validadeUpdateData = ({ title, content, user }) => {
+  const { error } = updateData.validate({ title, content, user });
+  if (error) {
+    return { type: 400, message: { message: 'Some required fields are missing' } };
+  }
+  return { type: null, message: '' };
+};
+
 module.exports = {
   validateNewUser,
   validateNewCategory,
+  validadeUpdateData,
 };
