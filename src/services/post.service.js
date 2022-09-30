@@ -56,9 +56,7 @@ const createPost = async ({ user, title, content, categoryIds }) => {
 };
 
 const updatePost = async (id, { title, content, user }) => {
-  console.log(title, content);
   const validateInput = validadeUpdateData({ title, content, user });
-  console.log(validateInput);
   if (validateInput.type) return validateInput;
 
   const post = await getPostByIdReturn(id);
@@ -77,4 +75,22 @@ const updatePost = async (id, { title, content, user }) => {
   return { type: 200, message: response };
 };
 
-module.exports = { createPost, getPostById, getAll, updatePost };
+const deletePost = async (id, user) => {
+  const post = await getPostByIdReturn(id);
+
+  if (!post) {
+    return { type: 404, message: { message: 'Post does not exist' } };
+  }
+
+  if (post.userId !== user) {
+    return { type: 401, message: { message: 'Unauthorized user' } };
+  }
+
+  await BlogPost.destroy(
+    { where: { id } },
+  );
+
+  return { type: 204, message: 'deletado' };
+};
+
+module.exports = { createPost, getPostById, getAll, updatePost, deletePost };

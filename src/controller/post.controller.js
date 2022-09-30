@@ -39,20 +39,22 @@ const getPostById = async (req, res) => {
   return res.status(200).json(response);
 };
 
-/* const isBodyValidUpdate = ({ title, content }) => title && content; */
-
 const updatePost = async (req, res) => {
   const { body, user } = req; body.user = user;
   const { id } = req.params;
-  console.log(req.body);
  
-/*   if (!isBodyValidUpdate(req.body)) {
-    return res.status(400).json({ message: 'Some required fields are missing' });
-  } */
-
   const { type, message } = await postService.updatePost(id, req.body);
 
   return res.status(type).json(message);
 };
 
-module.exports = { createPost, getAllPost, getPostById, updatePost };
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const { user } = req;
+ 
+  const { type, message } = await postService.deletePost(id, user);
+
+  return res.status(type).json(message);
+};
+
+module.exports = { createPost, getAllPost, getPostById, updatePost, deletePost };
