@@ -31,9 +31,24 @@ const createUser = async (userData) => {
   return { type: null, message: { token } };
 };
 
+const deleteUser = async (id) => {
+  const user = await getByUserId(id);
+
+  if (!user) {
+    return { type: 404, message: { message: 'User does not exist' } };
+  }
+
+  await User.destroy(
+    { where: { id } },
+  );
+
+  return { type: 204, message: 'deletado' };
+};
+
 module.exports = {
   getByUserEmail,
   createUser,
   getByUserId,
   getUsers,
+  deleteUser,
 };
