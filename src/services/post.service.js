@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category } = require('../models');
 const { validadeUpdateData } = require('./validations/validateData');
 
@@ -93,4 +94,27 @@ const deletePost = async (id, user) => {
   return { type: 204, message: 'deletado' };
 };
 
-module.exports = { createPost, getPostById, getAll, updatePost, deletePost };
+const getByQuery = async (q) => {
+  const response = await BlogPost.findAll({
+    include: [
+      { model: User, 
+        as: 'user',
+        attributes: { exclude: 'password' },
+      },
+      { model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+    where: { [Op.or]: { title: { [Op.like]: `%${q}%` }, content: { [Op.like]: `%${q}%` } },
+  } });
+
+  return { type: 200, message: response };
+};
+
+module.exports = { createPost, 
+  getPostById, 
+  getAll, 
+  updatePost, 
+  deletePost, 
+  getByQuery };
