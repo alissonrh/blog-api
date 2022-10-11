@@ -7,7 +7,7 @@ O Blog-API é uma **API REST** conectada a um bando de dados para a produção d
 
 ## Tecnologias e Ferramentas
 
-Este projeto foi desenvolvido em ambiente isolado de desenvolvimento `Docker` em `Node.js`. Os endpoits para as requisições HTTP que posibilitam o CRUD desta API foram estruturados com o framework  `Express.js`. A comunicação com o banco de dados foi otimizada usando a tecnica **ORM (Object-Relational Mapping ou, em português, mapeamento objeto-relacional)**! O ORM provê uma maneira de alterar e interagir com um banco de dados por meio de código `JavaScript`. A partir dele, é possível criar e alterar tabelas, realizar consultas, inserir e extrair dados do banco, tudo isso apenas escrevendo código JavaScript. A biblioteca utilizada para trabalhar com ORM foi o `Sequelize` compativel com diversos bancos de dados. Neste projeto foi utilizado o `MySQL`. 
+Este projeto foi desenvolvido em ambiente isolado de desenvolvimento `Docker` em `Node.js`. Os endpoits para as requisições HTTP que permitem o CRUD desta API foram estruturados com o framework  `Express.js`. A comunicação com o banco de dados foi otimizada usando a técnica **ORM (Object-Relational Mapping ou, em português, mapeamento objeto-relacional)**! O ORM provê uma maneira de alterar e interagir com um banco de dados por meio de código `JavaScript`. A partir dele, é possível criar e alterar tabelas, realizar consultas, inserir e extrair dados do banco, tudo isso apenas escrevendo código JavaScript. A biblioteca utilizada para trabalhar com ORM foi o `Sequelize` compatível com diversos bancos de dados. Neste projeto foi utilizado o `MySQL`.
 
 
 ## Instalando e executando o aplicativo
